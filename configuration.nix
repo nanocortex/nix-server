@@ -37,7 +37,7 @@ in
       ];
       after = [
         "dev-vda3"
-        "systemd-cryptsetup@${hostname}.service"
+        "systemd-cryptsetup@nixos.service"
       ];
       before = [ "sysroot.mount" ];
       unitConfig.DefaultDependencies = "no";

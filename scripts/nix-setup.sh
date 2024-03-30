@@ -6,6 +6,11 @@ setfont ter-v24n
 
 DISK=/dev/vda
 
+# Clear existing partitions on the disk
+parted "$DISK" -- rm 1
+parted "$DISK" -- rm 2
+parted "$DISK" -- rm 3
+
 parted "$DISK" -- mklabel gpt
 parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB
 parted "$DISK" -- set 1 boot on

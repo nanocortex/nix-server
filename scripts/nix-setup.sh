@@ -71,9 +71,13 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
+sudo nixos-install --root
+
 # now, edit nixos configuration and nixos-install
 #
 cp ../configuration.nix /mnt/etc/nixos/configuration.nix
+
+sudo nixos-install --root /mnt
 
 sudo nixos-rebuild boot
 

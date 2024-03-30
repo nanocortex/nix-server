@@ -71,24 +71,24 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
-sudo nixos-install --root
+nixos-install --root
 
 # now, edit nixos configuration and nixos-install
 #
 cp ../configuration.nix /mnt/etc/nixos/configuration.nix
 
-sudo nixos-install --root /mnt
+nixos-install --root /mnt
 
-sudo nixos-rebuild boot
+nixos-rebuild boot
 
-sudo mkdir /persist/etc
+mkdir /persist/etc
 
-sudo cp -r {,/persist}/etc/nixos
-sudo cp {,/persist}/etc/machine-id
+cp -r {,/persist}/etc/nixos
+cp {,/persist}/etc/machine-id
 
-sudo mkdir /persist/etc/ssh
+mkdir /persist/etc/ssh
 
-sudo cp {,/persist}/etc/ssh/ssh_host_ed25519_key
-sudo cp {,/persist}/etc/ssh/ssh_host_ed25519_key.pub
-sudo cp {,/persist}/etc/ssh/ssh_host_rsa_key
-sudo cp {,/persist}/etc/ssh/ssh_host_rsa_key.pub
+cp {,/persist}/etc/ssh/ssh_host_ed25519_key
+cp {,/persist}/etc/ssh/ssh_host_ed25519_key.pub
+cp {,/persist}/etc/ssh/ssh_host_rsa_key
+cp {,/persist}/etc/ssh/ssh_host_rsa_key.pub

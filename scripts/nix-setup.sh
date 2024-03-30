@@ -6,8 +6,6 @@ setfont ter-v24n
 
 DISK=/dev/vda
 
-swapoff -a
-
 if mountpoint -q /mnt/boot && [ -d /mnt/boot ]; then umount -l /mnt/boot; fi
 if mountpoint -q /mnt/var/log && [ -d /mnt/var/log ]; then umount -l /mnt/var/log; fi
 if mountpoint -q /mnt/persist && [ -d /mnt/persist ]; then umount -l /mnt/persist; fi
@@ -15,10 +13,13 @@ if mountpoint -q /mnt/nix && [ -d /mnt/nix ]; then umount -l /mnt/nix; fi
 if mountpoint -q /mnt/home && [ -d /mnt/home ]; then umount -l /mnt/home; fi
 if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
 
+swapoff -a
+wipefs -a "$DISK"
+
 # Clear existing partitions on the disk
-parted "$DISK" -- rm 1
-parted "$DISK" -- rm 2
-parted "$DISK" -- rm 3
+# parted "$DISK" -- rm 1
+# parted "$DISK" -- rm 2
+# parted "$DISK" -- rm 3
 
 parted "$DISK" -- mklabel gpt
 parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB

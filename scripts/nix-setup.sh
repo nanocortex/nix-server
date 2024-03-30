@@ -79,14 +79,14 @@ nixos-install --root /mnt
 
 # nixos-rebuild boot
 
-mkdir /persist/etc
+mkdir -p /mnt/persist/etc
 
-cp -r {,/persist}/etc/nixos
-cp {,/persist}/etc/machine-id
+cp -r {/mnt/nixos,/mnt/persist}/etc/nixos
+cp {/mnt/nixos,/mnt/persist}/etc/machine-id
 
 mkdir /persist/etc/ssh
 
-cp {,/persist}/etc/ssh/ssh_host_ed25519_key
-cp {,/persist}/etc/ssh/ssh_host_ed25519_key.pub
-cp {,/persist}/etc/ssh/ssh_host_rsa_key
-cp {,/persist}/etc/ssh/ssh_host_rsa_key.pub
+cp {/mnt/nixos,/mnt/persist}/etc/ssh/ssh_host_ed25519_key
+cp {/mnt/nixos,/mnt/persist}/etc/ssh/ssh_host_ed25519_key.pub
+cp {/mnt/nixos,/mnt/persist}/etc/ssh/ssh_host_rsa_key
+cp {/mnt/nixos,/mnt/persist}/etc/ssh/ssh_host_rsa_key.pub

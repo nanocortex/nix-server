@@ -6,12 +6,12 @@ setfont ter-v24n
 
 DISK=/dev/vda
 
-umount /mnt/boot
-umount /mnt/var/log
-umount /mnt/persist
-umount /mnt/nix
-umount /mnt/home
-umount /mnt
+umount -l /mnt/boot
+umount -l /mnt/var/log
+umount -l /mnt/persist
+umount -l /mnt/nix
+umount -l /mnt/home
+umount -l /mnt
 
 # Clear existing partitions on the disk
 parted "$DISK" -- rm 1

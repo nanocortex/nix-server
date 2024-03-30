@@ -79,7 +79,7 @@ cp ../configuration.nix /mnt/etc/nixos/configuration.nix
 
 nixos-install --root /mnt
 
-nixos-rebuild boot
+# nixos-rebuild boot
 
 mkdir /persist/etc
 

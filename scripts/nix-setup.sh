@@ -81,7 +81,7 @@ nixos-install --root /mnt
 
 mkdir -p /mnt/persist/etc
 
-cp -r {/mnt,/mnt/persist}/etc/nixos
+cp -r /mnt/etc/nixos /mnt/persist/etc/nixos
 # cp {/mnt,/mnt/persist}/etc/machine-id
 
 mkdir -p /mnt/persist/etc/ssh

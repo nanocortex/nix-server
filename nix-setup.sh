@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+set -e -u -o pipefail -x
+
+setfont ter-v24n
+
 DISK=/dev/vda
 
 parted "$DISK" -- mklabel gpt

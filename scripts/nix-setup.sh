@@ -84,7 +84,7 @@ mkdir -p /mnt/persist/etc
 cp -r {/mnt,/mnt/persist}/etc/nixos
 # cp {/mnt,/mnt/persist}/etc/machine-id
 
-mkdir /mnt/persist/etc/ssh
+mkdir -p /mnt/persist/etc/ssh
 
 cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key
 cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key.pub

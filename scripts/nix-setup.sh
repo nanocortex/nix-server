@@ -6,6 +6,8 @@ setfont ter-v24n
 
 DISK=/dev/vda
 
+umount /mnt
+
 # Clear existing partitions on the disk
 parted "$DISK" -- rm 1
 parted "$DISK" -- rm 2

@@ -46,7 +46,7 @@ btrfs subvolume create /mnt/log
 # which we'll eventually rollback to on every boot.
 btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-umount /mnt
+# umount /mnt
 
 # Mount the directories
 
@@ -73,20 +73,20 @@ nixos-generate-config --root /mnt
 
 # now, edit nixos configuration and nixos-install
 #
-cp ../configuration.nix /mnt/etc/nixos/configuration.nix
+# cp ../configuration.nix /mnt/etc/nixos/configuration.nix
 
-nixos-install --root /mnt
+# nixos-install --root /mnt
 
-# nixos-rebuild boot
+# # nixos-rebuild boot
 
-mkdir -p /mnt/persist/etc
+# mkdir -p /mnt/persist/etc
 
-cp -r /mnt/etc/nixos /mnt/persist/etc/nixos
-# cp {/mnt,/mnt/persist}/etc/machine-id
+# cp -r /mnt/etc/nixos /mnt/persist/etc/nixos
+# # cp {/mnt,/mnt/persist}/etc/machine-id
 
-mkdir -p /mnt/persist/etc/ssh
+# mkdir -p /mnt/persist/etc/ssh
 
-cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key
-cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key.pub
-cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_rsa_key
-cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_rsa_key.pub
+# cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key
+# cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_ed25519_key.pub
+# cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_rsa_key
+# cp {/mnt,/mnt/persist}/etc/ssh/ssh_host_rsa_key.pub

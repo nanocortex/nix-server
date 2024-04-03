@@ -71,7 +71,13 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
+
+mkdir -p /mnt/persist/passwords
+mkpasswd -m sha-512 "P@ssw0rd" > /mnt/persist/passwords/user
+
 # now, edit nixos configuration and nixos-install
+#
+#
 #
 cp ../configuration.nix /mnt/etc/nixos/configuration.nix
 
@@ -81,7 +87,7 @@ nixos-rebuild boot
 
 mkdir -p /mnt/persist/etc
 
-cp -r /mnt/etc/nixos /mnt/persist/etc/nixos
+cp -r /mnt/etc/nixos /mnt/persist/etc/
 # cp {/mnt,/mnt/persist}/etc/machine-id
 
 mkdir -p /mnt/persist/etc/ssh

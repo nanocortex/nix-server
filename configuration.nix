@@ -124,14 +124,12 @@ in
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIED8axnZzZk5P39CEbMeJZy42o/4T0iHgr1pefNDsnU5 ex0cortex@pm.me" ];
 
     # passwordFile needs to be in a volume marked with `neededForBoot = true`
-    passwordFile = "/persist/passwords/user";
+    hashedPasswordFile = "/persist/passwords/user";
   };
 
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
     allowSFTP = false; # Don't set this if you need sftp
-    challengeResponseAuthentication = false;
     extraConfig = ''
       AllowTcpForwarding yes
       X11Forwarding no
@@ -139,6 +137,13 @@ in
       AllowStreamLocalForwarding no
       AuthenticationMethods publickey
     '';
+
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      ChallengeResponseAuthentication = false;
+
+    };
   };
 
   # Open ports in the firewall.

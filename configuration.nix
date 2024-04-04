@@ -18,9 +18,12 @@
 
   time.timeZone = "Europe/Warsaw";
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   environment.systemPackages = with pkgs; [
     git
     vim
+    lazygit
   ];
 
   #users.mutableUsers = false;
@@ -58,7 +61,7 @@
     allowedUDPPorts = [ ];
   };
 
-  system.copySystemConfiguration = true;
+  # system.copySystemConfiguration = true;
 
   # Read the doc before updating
   system.stateVersion = "23.11";

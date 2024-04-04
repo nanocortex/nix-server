@@ -43,3 +43,9 @@ cp ../configuration.nix /mnt/etc/nixos/configuration.nix
 
 # nixos-install --root /mnt
 # nixos-rebuild boot
+#
+nixos-install --root /mnt
+
+passwd
+
+echo "Installation complete. Rebooting..."

@@ -26,6 +26,17 @@
     lazygit
   ];
 
+  programs.git = {
+    enable = true;
+    config = {
+	    user.name = "nanocortex";
+	    user.email = "nb.dnio6@aleeas.com";
+	    extraConfig = {
+	      credential.helper = "store";
+	    };
+    };
+  };
+
   #users.mutableUsers = false;
   users.users.user = {
     isNormalUser = true;

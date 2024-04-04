@@ -2,7 +2,7 @@
 
 set -e -u -o pipefail -x
 
-setfont ter-v24n
+# setfont ter-v24n
 
 DISK=/dev/vda
 
@@ -29,9 +29,8 @@ mkswap -L Swap "$DISK"2
 swapon "$DISK"2
 
 parted "$DISK" -- mkpart primary 9GiB 100%
-mkfs.btrfs -L ext4 "$DISK"3 -f
+mkfs.ext4 -L ext4 "$DISK"3 -f
 
-umount /mnt
 mount "$DISK"3 /mnt
 
 mkdir /mnt/boot

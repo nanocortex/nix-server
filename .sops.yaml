@@ -1,5 +1,5 @@
 keys:
-  - &cronos age1dfuawlw7davpmrca9fnpmqsfk0cmfezcg5syfwtve33npsxfz9fsxcg5r3
+  - &cronos age133mrdqxr5ch5sjpwz80tkz79ewh8g5m248su3dd3z4wyntcq7v9sr6xqda
 creation_rules:
   - path_regex: hosts/cronos/secrets.yaml$
     key_groups:

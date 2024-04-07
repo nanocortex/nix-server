@@ -42,8 +42,12 @@ nixos-generate-config --root /mnt
 
 nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
+cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
 cp -r /tmp/nixconf/* /mnt/etc/nixos
+cp /tmp/hw.conf /mnt/etc/nixos/hosts/cronos/hardware-configuration.nix
 
 nixos-install --flake /mnt/etc/nixos#cronos --root /mnt
+
+sudo cp /mnt/etc/nixos /mnt/home/user/dotfiles && sudo chown -R user /mnt/home/user/dotfiles
 
 echo "Installation complete. Rebooting..."

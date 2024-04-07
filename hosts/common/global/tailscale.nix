@@ -8,8 +8,8 @@
     enable = true;
     authkeyFile = config.sops.secrets.tailscale_key.path;
     loginServer = "https://login.tailscale.com";
-    exitNode = "some-node-id";
-    exitNodeAllowLanAccess = true;
+   # exitNode = "some-node-id";
+#    exitNodeAllowLanAccess = true;
   };
 
   sops.secrets.tailscale_key = {

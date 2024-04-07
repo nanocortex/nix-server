@@ -40,12 +40,10 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
-nix-shell -p git --run "git clone $GITHUB_REPO /mnt/etc/nixos"
+nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
-cp -r ../* /mnt/etc/nixos/*
+cp -r /tmp/nixconf/* /mnt/etc/nixos/*
 
 nixos-install --root /mnt
-
-passwd
 
 echo "Installation complete. Rebooting..."

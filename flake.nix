@@ -10,10 +10,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... }@inputs: let
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... }@inputs: 
+let
     forEachSystem = nixpkgs.lib.genAttrs ["aarch64-linux" "x86_64-linux"];
     forEachPkgs = f: forEachSystem (sys: f nixpkgs.legacyPackages.${sys});
-  mkNixos = host: system:
+
+    mkNixos = host: system:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {inherit (self) inputs outputs;};

@@ -37,6 +37,10 @@
     username = "user";
     homeDirectory = "/home/${config.home.username}";
     stateVersion = "23.11";
+
+    sessionVariables = {
+      EDITOR = "lvim";
+    };
   };
 
   programs.home-manager.enable = true;

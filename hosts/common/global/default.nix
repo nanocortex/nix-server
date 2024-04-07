@@ -9,7 +9,7 @@
 #     ./ntfs.nix
 #     ./oomd.nix
      ./openssh.nix
-#     ./sops.nix
+     ./sops.nix
 #     ./systemd-boot.nix
 #     ./tailscale.nix
     ./users.nix

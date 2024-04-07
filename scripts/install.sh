@@ -30,7 +30,7 @@ mkswap -L Swap "$DISK"2
 swapon "$DISK"2
 
 parted "$DISK" -- mkpart primary 9GiB 100%
-mkfs.ext4 -L ext4 "$DISK"3
+mkfs.ext4 -L ext4 "$DISK"3 -F
 
 mount "$DISK"3 /mnt
 

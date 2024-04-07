@@ -11,7 +11,7 @@
      ./openssh.nix
      ./sops.nix
 #     ./systemd-boot.nix
-#     ./tailscale.nix
+     ./tailscale.nix
     ./users.nix
   ];
 

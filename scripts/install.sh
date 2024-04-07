@@ -57,5 +57,4 @@ cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/cronos/hardware-configuration.nix
 rm -rf /mnt/etc/nixos/*
 ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
 
-
-echo "Installation complete. Rebooting..."
+echo "Installation complete. Before rebooting copy ssh keys!!!"

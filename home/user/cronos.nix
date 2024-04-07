@@ -26,9 +26,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
-
     neofetch
     nnn # terminal file manager
 
@@ -36,6 +33,7 @@
     zip
     unzip
     p7zip
+    atool
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
@@ -64,25 +62,29 @@
     gawk
     zstd
     gnupg
+    ncdu
+    lazygit
+    lazydocker
+    fd
+    speedtest-cli
 
     # nix related
     #
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
+
+    # Core
+    zsh
+    zoxide
+    lunarvim
+    duf
+    gh
+
+    # Various dev packages
+    tailscale
   ];
 
-  # basic configuration of git, please change to your own
-  programs.git = {
-    enable = true;
-    userName = "nb.dnio6";
-    userEmail = "nb.dnio6@aleeas.com";
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

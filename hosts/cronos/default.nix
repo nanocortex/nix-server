@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos";
+  networking.hostName = "cronos";
   networking.networkmanager.enable = true;
 
   home-manager.users.user = import ../../home/user/cronos.nix;
@@ -39,15 +39,6 @@
 	      credential.helper = "store";
 	    };
     };
-  };
-
-  #users.mutableUsers = false;
-  users.users.user = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIED8axnZzZk5P39CEbMeJZy42o/4T0iHgr1pefNDsnU5 ex0cortex@pm.me" ];
-    # hashedPasswordFile = "/persist/passwords/user";
   };
 
   services.openssh = {

@@ -8,14 +8,13 @@
   imports =
     [
 #     inputs.nix-colors.homeManagerModules.default
-
 #     ./atuin.nix
 #     ./bat.nix
 #     ./bottom.nix
 #     ./calendar.nix
 #     ./direnv.nix
 #     ./eza.nix
-#     ./fish.nix
+     ./sh.nix
 #     ./font.nix
 #     ./fzf.nix
 #     ./git.nix

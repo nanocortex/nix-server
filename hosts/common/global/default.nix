@@ -12,6 +12,6 @@
 #     ./sops.nix
 #     ./systemd-boot.nix
 #     ./tailscale.nix
-#    ./users.nix
+    ./users.nix
   ];
 }

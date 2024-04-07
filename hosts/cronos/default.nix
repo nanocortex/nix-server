@@ -17,6 +17,9 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
+  home-manager.users.user = import ../../home/user/cronos.nix;
+
+
   time.timeZone = "Europe/Warsaw";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

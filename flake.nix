@@ -41,32 +41,11 @@ in
     nixosConfigurations = {
       cronos = mkNixos "cronos" "aarch64-linux";
  #    hestia = mkNixos "hestia" "x86_64-linux";
- #    deimos = mkNixos "deimos" "x86_64-linux";
     };
 
     homeConfigurations = {
      "dave@cronos" = mkHome "cronos" "aarch64-linux";
  #    "dave@hestia" = mkHome "hestia" "x86_64-linux";
- #    "dave@deimos" = mkHome "deimos" "x86_64-linux";
     };
-
-#    nixosConfigurations = {
-#	nixos = nixpkgs.lib.nixosSystem {
-#	      system = "aarch64-linux";
-#	      modules = [
-#		./configuration.nix # Import the previous configuration.nix
-#  home-manager.nixosModules.home-manager
-#         {
-#           home-manager.useGlobalPkgs = true;
-#           home-manager.useUserPackages = true;
-
-#           # TODO replace ryan with your own username
-#           home-manager.users.user = import ./home.nix;
-
-#           # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-#         }
-#	      ];
-#      };
-#    };
   };
 }

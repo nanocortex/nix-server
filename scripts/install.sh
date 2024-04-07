@@ -51,7 +51,7 @@ nixos-install --flake /mnt/etc/nixos#cronos --root /mnt
 
 # cp -r /mnt/etc/nixos /mnt/home/user/dotfiles
 nix-shell -p git --run "git clone $GITHUB_REPO /mnt/home/user/dotfiles"
-chown -R user /mnt/home/user/dotfiles
+# chown -R user /mnt/home/user/dotfiles
 cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/cronos/hardware-configuration.nix
 
 rm -rf /mnt/etc/nixos/*

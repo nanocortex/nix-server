@@ -43,14 +43,14 @@
     fzf # A command-line fuzzy finder
 
     # networking tools
-    mtr # A network diagnostic tool
-    iperf3
-    dnsutils  # `dig` + `nslookup`
-    ldns # replacement of `dig`, it provide the command `drill`
-    aria2 # A lightweight multi-protocol & multi-source command-line download utility
-    socat # replacement of openbsd-netcat
+    # mtr # A network diagnostic tool
+    # iperf3
+    # dnsutils  # `dig` + `nslookup`
+    # ldns # replacement of `dig`, it provide the command `drill`
+    # aria2 # A lightweight multi-protocol & multi-source command-line download utility
+    # socat # replacement of openbsd-netcat
     nmap # A utility for network discovery and security auditing
-    ipcalc  # it is a calculator for the IPv4/v6 addresses
+    # ipcalc  # it is a calculator for the IPv4/v6 addresses
 
     # misc
     cowsay
@@ -60,13 +60,13 @@
     gnused
     gnutar
     gawk
-    zstd
+    # zstd
     gnupg
     ncdu
     lazygit
-    lazydocker
+    # lazydocker
     fd
-    speedtest-cli
+    # speedtest-cli
 
     # nix related
     #

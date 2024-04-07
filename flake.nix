@@ -6,10 +6,6 @@
     nixpkgs-stable.url = "nixpkgs/nixos-23.11"; # Stable branch, version 23.11
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with
-      # the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -31,14 +27,14 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit (self) inputs outputs;};
         modules = [
-          ./home/edgar/${host}.nix
+          ./home/user/${host}.nix
         ];
       };
 
 in
 {
 
-    packages = forEachPkgs (pkgs: import ./pkgs {inherit pkgs;});
+    # packages = forEachPkgs (pkgs: import ./pkgs {inherit pkgs;});
 
     nixosConfigurations = {
       cronos = mkNixos "cronos" "aarch64-linux";
@@ -48,8 +44,8 @@ in
 
     homeConfigurations = {
      "dave@cronos" = mkHome "cronos" "aarch64-linux";
- #    "edgar@hestia" = mkHome "hestia" "x86_64-linux";
- #    "edgar@deimos" = mkHome "deimos" "x86_64-linux";
+ #    "dave@hestia" = mkHome "hestia" "x86_64-linux";
+ #    "dave@deimos" = mkHome "deimos" "x86_64-linux";
     };
 
 #    nixosConfigurations = {

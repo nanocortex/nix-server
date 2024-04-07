@@ -8,10 +8,13 @@
 #     ./nixpkgs.nix
 #     ./ntfs.nix
 #     ./oomd.nix
-#     ./openssh.nix
+     ./openssh.nix
 #     ./sops.nix
 #     ./systemd-boot.nix
 #     ./tailscale.nix
     ./users.nix
   ];
+
+
+  time.timeZone = "Europe/Warsaw";
 }

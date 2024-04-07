@@ -17,7 +17,7 @@
      ./sh.nix
 #     ./font.nix
 #     ./fzf.nix
-#     ./git.nix
+     ./git.nix
 #     ./helix.nix
 #     ./jq.nix
 #     ./kitty.nix

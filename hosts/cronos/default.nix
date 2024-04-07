@@ -20,8 +20,6 @@
   home-manager.users.user = import ../../home/user/cronos.nix;
 
 
-  time.timeZone = "Europe/Warsaw";
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.systemPackages = with pkgs; [
@@ -30,40 +28,20 @@
     lazygit
   ];
 
-  programs.git = {
-    enable = true;
-    config = {
-	    user.name = "nanocortex";
-	    user.email = "nb.dnio6@aleeas.com";
-	    extraConfig = {
-	      credential.helper = "store";
-	    };
-    };
-  };
-
-  services.openssh = {
-    enable = true;
-    allowSFTP = false; # Don't set this if you need sftp
-    extraConfig = ''
-      AllowTcpForwarding yes
-      X11Forwarding no
-      AllowAgentForwarding no
-      AllowStreamLocalForwarding no
-      AuthenticationMethods publickey
-    '';
-
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      ChallengeResponseAuthentication = false;
-
-    };
-  };
+  # programs.git = {
+  #   enable = true;
+  #   config = {
+	 #    user.name = "nanocortex";
+	 #    user.email = "nb.dnio6@aleeas.com";
+	 #    extraConfig = {
+	 #      credential.helper = "store";
+	 #    };
+  #   };
+  # };
 
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 ];
     allowedUDPPorts = [ ];
   };
 

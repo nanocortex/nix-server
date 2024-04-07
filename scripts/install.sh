@@ -44,6 +44,6 @@ nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
 cp -r /tmp/nixconf/* /mnt/etc/nixos
 
-nixos-install --root /mnt
+nixos-install --flake /mnt/etc/nixos#cronos --root /mnt
 
 echo "Installation complete. Rebooting..."

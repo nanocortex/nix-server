@@ -40,6 +40,7 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
+rm -rf /tmp/nixconf
 nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
 cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
@@ -49,7 +50,7 @@ cp /tmp/hw.conf /mnt/etc/nixos/hosts/cronos/hardware-configuration.nix
 nixos-install --flake /mnt/etc/nixos#cronos --root /mnt
 
 # cp -r /mnt/etc/nixos /mnt/home/user/dotfiles
-git clone $GITHUB_REPO /mnt/home/user/dotfiles
+nix-shell -p git --run "git clone $GITHUB_REPO /mnt/home/user/dotfiles"
 chown -R user /mnt/home/user/dotfiles
 cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/cronos/hardware-configuration.nix
 

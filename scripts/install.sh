@@ -42,7 +42,7 @@ nixos-generate-config --root /mnt
 
 nix-shell -p git --run "git clone $GITHUB_REPO /mnt/etc/nixos"
 
-cp -r .. /mnt/etc/nixos
+cp -r ../* /mnt/etc/nixos/*
 
 nixos-install --root /mnt
 

@@ -19,17 +19,35 @@ parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB
 parted "$DISK" -- set 1 boot on
 mkfs.vfat "$DISK"1
 
+# parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
+# mkswap -L Swap "$DISK"2
+# swapon "$DISK"2
+
+# Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
-mkswap -L Swap "$DISK"2
-swapon "$DISK"2
+cryptsetup luksFormat "$DISK"2
+cryptsetup open "$DISK"2 cryptswap
+mkswap -L Swap /dev/mapper/cryptswap
+swapon /dev/mapper/cryptswap
 
+
+# parted "$DISK" -- mkpart primary 9GiB 100%
+# mkfs.ext4 -L ext4 "$DISK"3 -F
+#
 parted "$DISK" -- mkpart primary 9GiB 100%
-mkfs.ext4 -L ext4 "$DISK"3 -F
+# Setting up encryption for the root partition
+cryptsetup luksFormat "$DISK"3
+cryptsetup open "$DISK"3 cryptroot
+mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 
-mount "$DISK"3 /mnt
+# mount "$DISK"3 /mnt
+# mkdir /mnt/boot
+# mount "$DISK"1 /mnt/boot
 
+mount /dev/mapper/cryptroot /mnt
 mkdir /mnt/boot
 mount "$DISK"1 /mnt/boot
+
 
 # create configuration
 nixos-generate-config --root /mnt

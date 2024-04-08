@@ -149,10 +149,7 @@ in
 	export NNN_FIFO='/tmp/nnn.fifo'
 
   export PATH="$PATH:/home/dave/.local/share/JetBrains/Toolbox/scripts:/home/dave/.dotnet/tools"
-
-
-	eval "$(zoxide init zsh)"
-    '';
+'';
   };
 
   programs.bash = {

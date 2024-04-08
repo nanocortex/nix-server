@@ -28,7 +28,7 @@
 #     ./starship.nix
 #     ./xdg.nix
 #     ./yazi.nix
-#     ./zoxide.nix
+     ./zoxide.nix
     ];
 
 #  colorScheme = inputs.nix-colors.colorSchemes.selenized-light;

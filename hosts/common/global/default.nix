@@ -20,6 +20,7 @@
 
   boot.kernelParams = [ "ip=dhcp" ];
   boot.initrd = {
+    verbose = true;
     availableKernelModules = [ "r8169" "virtio-pci" ];
     systemd.users.root.shell = "/bin/cryptsetup-askpass";
     network = {

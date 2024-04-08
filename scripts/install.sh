@@ -5,6 +5,7 @@ set -e -u -o pipefail -x
 # setfont ter-v24n
 DISK="$1"
 HOSTNAME="$2"
+PASSWORD_FILE="/tmp/secure.txt"
 
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
 
@@ -25,8 +26,8 @@ mkfs.vfat "$DISK"1
 
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
-cryptsetup luksFormat "$DISK"2
-cryptsetup open "$DISK"2 cryptswap
+cryptsetup luksFormat "$DISK"2 --key-file "$PASSWORD_FILE"
+cryptsetup open "$DISK"2 cryptswap --key-file "$PASSWORD_FILE"
 mkswap -L Swap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
@@ -36,8 +37,8 @@ swapon /dev/mapper/cryptswap
 #
 parted "$DISK" -- mkpart primary 9GiB 100%
 # Setting up encryption for the root partition
-cryptsetup luksFormat "$DISK"3
-cryptsetup open "$DISK"3 cryptroot
+cryptsetup luksFormat "$DISK"3 --key-file "$PASSWORD_FILE"
+cryptsetup open "$DISK"3 cryptroot --key-file "$PASSWORD_FILE"
 mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 
 # mount "$DISK"3 /mnt
@@ -71,6 +72,8 @@ rm -rf /mnt/etc/nixos/*
 
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh
+
+rm -rf /tmp/*
 
 echo "Installation complete. Rebooting"
 

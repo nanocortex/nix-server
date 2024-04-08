@@ -166,10 +166,10 @@ in
   programs.direnv.enableZshIntegration = true;
   programs.direnv.nix-direnv.enable = true;
 
-    programs.fzf = {
-     enable = true;
-     enableZshIntegration = true;
-   };
+   #  programs.fzf = {
+   #   enable = true;
+   #   enableZshIntegration = true;
+   # };
 
    programs.neovim = {
     enable = true;

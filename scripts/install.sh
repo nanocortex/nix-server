@@ -49,7 +49,7 @@ nix-shell -p git --run "git clone $GITHUB_REPO /mnt/home/user/dotfiles"
 cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/$HOSTNAME/hardware-configuration.nix
 
 rm -rf /mnt/etc/nixos/*
-ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
+# ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
 
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh

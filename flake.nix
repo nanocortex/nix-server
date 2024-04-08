@@ -23,7 +23,9 @@ let
     mkNixos = host: system:
       nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit (self) inputs outputs;};
+        specialArgs = {
+          inherit (self) inputs outputs host;
+        };
         modules = [
           ./hosts/${host}
         ];
@@ -32,7 +34,9 @@ let
     mkHome = host: system:
       home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = {inherit (self) inputs outputs;};
+        extraSpecialArgs = {
+          inherit (self) inputs outputs host;
+        };
         modules = [
           ./home/user/${host}.nix
         ];
@@ -52,7 +56,7 @@ in
     };
 
     homeConfigurations = {
-     "dave@cronos" = mkHome "cronos" "aarch64-linux";
+     "user@cronos" = mkHome "cronos" "aarch64-linux";
  #    "dave@hestia" = mkHome "hestia" "x86_64-linux";
     };
   };

@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 let
   # My shell aliases
   myAliases = {
+
     # reload system
     rs = "sudo nixos-rebuild switch --flake /home/dave/.dotfiles#system";
-
     # reload home
     rh = "home-manager switch --flake ~/.dotfiles#user";
     vim="lvim";
@@ -102,6 +102,9 @@ let
 
     nixos-rebuild = "systemd-run --no-ask-password --uid=0 --system --scope -p MemoryLimit=16000M -p CPUQuota=60% nixos-rebuild";
     home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager";
+
+
+    rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#cronos";
   };
 
 in

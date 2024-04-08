@@ -38,6 +38,8 @@
     eza # A modern replacement for ‘ls’
     fzf # A command-line fuzzy finder
 
+    htop
+
     # networking tools
     # mtr # A network diagnostic tool
     # iperf3
@@ -71,14 +73,10 @@
     nix-output-monitor
 
     # Core
-    zsh
     zoxide
     lunarvim
     duf
     gh
-
-    # Various dev packages
-    tailscale
   ];
 
 

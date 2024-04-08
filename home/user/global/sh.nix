@@ -149,10 +149,7 @@ in
 	export NNN_FIFO='/tmp/nnn.fifo'
 
   export PATH="$PATH:/home/dave/.local/share/JetBrains/Toolbox/scripts:/home/dave/.dotnet/tools"
-
-
-	eval "$(zoxide init zsh)"
-    '';
+'';
   };
 
   programs.bash = {
@@ -169,10 +166,10 @@ in
   programs.direnv.enableZshIntegration = true;
   programs.direnv.nix-direnv.enable = true;
 
-    programs.fzf = {
-     enable = true;
-     enableZshIntegration = true;
-   };
+   #  programs.fzf = {
+   #   enable = true;
+   #   enableZshIntegration = true;
+   # };
 
    programs.neovim = {
     enable = true;

@@ -41,6 +41,9 @@ let
 in
 {
 
+    nixosModules = import ./modules/nixos;
+
+
     # packages = forEachPkgs (pkgs: import ./pkgs {inherit pkgs;});
 
     nixosConfigurations = {

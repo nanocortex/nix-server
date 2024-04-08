@@ -57,4 +57,7 @@ cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/cronos/hardware-configuration.nix
 rm -rf /mnt/etc/nixos/*
 ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
 
+cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
+cp /tm/ssh_host_ed25519_key.pub /mnt/etc/ssh
+
 echo "Installation complete. Before rebooting copy ssh keys!!!"

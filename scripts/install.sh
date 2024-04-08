@@ -3,9 +3,10 @@
 set -e -u -o pipefail -x
 
 # setfont ter-v24n
-DISK="/dev/vda"
+DISK="$1"
+HOSTNAME="$2"
+
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
-FLAKE_PATH="/mnt/etc/nixos#cronos"
 
 if mountpoint -q /mnt/boot && [ -d /mnt/boot ]; then umount -l /mnt/boot; fi
 if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
@@ -13,17 +14,10 @@ if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
 swapoff -a
 wipefs -a "$DISK"
 
-# Clear existing partitions on the disk
-# parted "$DISK" -- rm 1
-# parted "$DISK" -- rm 2
-# parted "$DISK" -- rm 3
-
 parted "$DISK" -- mklabel gpt
 parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB
 parted "$DISK" -- set 1 boot on
 mkfs.vfat "$DISK"1
-
-# As I intend to use this VM on Proxmox, I will not encrypt the disk
 
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
 mkswap -L Swap "$DISK"2
@@ -45,14 +39,14 @@ nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
 cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
 cp -r /tmp/nixconf/* /mnt/etc/nixos
-cp /tmp/hw.conf /mnt/etc/nixos/hosts/cronos/hardware-configuration.nix
+cp /tmp/hw.conf /mnt/etc/nixos/hosts/$HOSTNAME/hardware-configuration.nix
 
-nixos-install --flake /mnt/etc/nixos#cronos --root /mnt
+nixos-install --flake /mnt/etc/nixos#$HOSTNAME --root /mnt
 
 # cp -r /mnt/etc/nixos /mnt/home/user/dotfiles
 nix-shell -p git --run "git clone $GITHUB_REPO /mnt/home/user/dotfiles"
 # chown -R user /mnt/home/user/dotfiles
-cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/cronos/hardware-configuration.nix
+cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/$HOSTNAME/hardware-configuration.nix
 
 rm -rf /mnt/etc/nixos/*
 ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
@@ -60,4 +54,8 @@ ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh
 
-echo "Installation complete. Before rebooting copy ssh keys!!!"
+echo "Installation complete. Rebooting"
+
+sleep 2
+
+# reboot

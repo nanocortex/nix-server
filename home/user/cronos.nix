@@ -73,6 +73,7 @@
     nix-output-monitor
 
     # Core
+    zsh
     zoxide
     lunarvim
     duf

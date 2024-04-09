@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-set -e -u -o pipefail -x
+set -e -u -o pipefail #-x
 
 # setfont ter-v24n
 DISK="$1"
 HOSTNAME="$2"
-
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
 
 # Improved pre-conditions check and unmounting

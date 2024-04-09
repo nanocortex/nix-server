@@ -24,6 +24,7 @@
   home.packages = with pkgs; [
     neofetch
     nnn # terminal file manager
+    lsof
 
     # archives
     zip

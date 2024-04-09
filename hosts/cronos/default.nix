@@ -8,6 +8,10 @@
     [
       ../common/global
       ./hardware-configuration.nix
+      ./acme.nix
+      #./nginx.nix
+      ./caddy.nix
+      ./freshrss.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

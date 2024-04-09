@@ -95,7 +95,7 @@ let
     tml="tmux attach-session -t $(tmux list-sessions -F '#S' | fzf --height 50% --reverse)";
     df="duf";
     iscg="jira |  jtbl -n";
-    grep="grep --color=always -B 5 -A 5";
+    grep="grep --color=always";
     diff="diff --color=always -b";
 
 

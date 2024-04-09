@@ -50,15 +50,17 @@ mkfs.vfat "$DISK"1
 # swapon "$DISK"2
 #
 # Ask for the password
-read -r -s -p "Enter the password for the LUKS partition: " PASSWORD
+echo "ENTER Password for the LUKS partition: "
+read PASSWORD
 echo # Move to a new line
 
 # Verify the password
-read -r -s -p "Verify the password: " PASSWORD_VERIFY
+echo "Verify the password: "
+read PASSWORD_VERIFY
 echo # Move to a new line
 
 # Check if passwords match
-if [ "$PASSWORD" != "$PASSWORD_VERIFY" ]; then
+if [ $PASSWORD != $PASSWORD_VERIFY ]; then
     echo "Passwords do not match."
     exit 1
 fi
@@ -66,8 +68,8 @@ fi
 
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
-echo "$PASSWORD" | cryptsetup luksFormat "$DISK"2 -
-echo "$PASSWORD" | cryptsetup open "$DISK"2 cryptswap -
+echo $PASSWORD | cryptsetup luksFormat "$DISK"2 -
+echo $PASSWORD | cryptsetup open "$DISK"2 cryptswap -
 mkswap -L Swap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
@@ -77,8 +79,8 @@ swapon /dev/mapper/cryptswap
 #
 parted "$DISK" -- mkpart primary 9GiB 100%
 # Setting up encryption for the root partition
-echo "$PASSWORD" | cryptsetup luksFormat "$DISK"3 -
-echo "$PASSWORD" | cryptsetup open "$DISK"3 cryptroot -
+echo $PASSWORD | cryptsetup luksFormat "$DISK"3 -
+echo $PASSWORD | cryptsetup open "$DISK"3 cryptroot -
 mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 
 unset PASSWORD

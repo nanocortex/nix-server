@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -u -o pipefail #-x
+set -e -u -o pipefail -x
 
 # setfont ter-v24n
 DISK="$1"
@@ -65,6 +65,7 @@ if [ $PASSWORD != $PASSWORD_VERIFY ]; then
     exit 1
 fi
 
+echo "PASSWORD ISSSSS: $PASSWORD"
 
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB

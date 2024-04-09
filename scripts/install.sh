@@ -17,8 +17,13 @@ check_and_unmount() {
     fi
 }
 
-cryptsetup luksClose /dev/mapper/cryptroot
-cryptsetup luksClose /dev/mapper/cryptswap
+closeLuks() {
+    local luks_volume_name=$1
+    cryptsetup status "$luks_volume_name" &>/dev/null && sudo cryptsetup luksClose "$luks_volume_name" || echo "LUKS volume $luks_volume_name is not active or cannot be closed."
+}
+
+closeLuks "/dev/mapper/crytswap"
+closeLuks "/dev/mapper/cryptroot"
 
 check_and_unmount /mnt/boot
 check_and_unmount /mnt

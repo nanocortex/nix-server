@@ -22,7 +22,7 @@
   boot.initrd = {
     verbose = true;
     availableKernelModules = [ "virtio-pci" ];
-    systemd.users.root.shell = "/bin/systemd-tty-ask-password-agent";
+    systemd.users.root.shell = "/bin/cryptsetup-askpass";
     network = {
       enable = true;
       ssh = {

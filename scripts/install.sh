@@ -9,11 +9,30 @@ PASSWORD_FILE="/tmp/secure.txt"
 
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
 
-if mountpoint -q /mnt/boot && [ -d /mnt/boot ]; then umount -l /mnt/boot; fi
-if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
+# Improved pre-conditions check and unmounting
+check_and_unmount() {
+    local target=$1
+    if mountpoint -q "$target"; then
+        sudo umount "$target" || sudo umount -lf "$target" # Lazily force unmount if needed
+    fi
+}
 
-swapoff -a
+check_and_unmount /mnt/boot
+check_and_unmount /mnt
+
+# Improve swap off handling
+swapoff -a || true # Continue even if swapoff fails, adjust as needed for safety
+
+# Wait and ensure devices are not in use before wiping
+sleep 2
 wipefs -a "$DISK"
+sleep 2
+
+# if mountpoint -q /mnt/boot && [ -d /mnt/boot ]; then umount -l /mnt/boot; fi
+# if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
+
+# swapoff -a
+# wipefs -a "$DISK"
 
 parted "$DISK" -- mklabel gpt
 parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB

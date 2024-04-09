@@ -73,8 +73,8 @@ rm -rf /mnt/etc/nixos/*
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh
 
-mkdir -p /etc/secrets/initrd
-ssh-keygen -t rsa -N "" -f /etc/secrets/initrd/ssh_host_rsa_key
+mkdir -p /mnt/etc/secrets/initrd
+ssh-keygen -t rsa -N "" -f /mnt/etc/secrets/initrd/ssh_host_rsa_key
 
 rm -rf /tmp/*
 

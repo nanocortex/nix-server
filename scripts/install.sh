@@ -17,6 +17,9 @@ check_and_unmount() {
     fi
 }
 
+cryptsetup luksClose /dev/mapper/cryptroot
+cryptsetup luksClose /dev/mapper/cryptswap
+
 check_and_unmount /mnt/boot
 check_and_unmount /mnt
 

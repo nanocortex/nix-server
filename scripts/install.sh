@@ -53,12 +53,20 @@ mount "$DISK"1 /mnt/boot
 # create configuration
 nixos-generate-config --root /mnt
 
+mkdir -p /mnt/etc/secrets/initrd
+mkdir -p /etc/secrets/initrd
+ssh-keygen -t rsa -N "" -f /mnt/etc/secrets/initrd/ssh_host_rsa_key
+cp /mnt/etc/secrets/initrd/ssh_host_rsa_key /etc/secrets/initrd/ssh_host_rsa_key
+
 rm -rf /tmp/nixconf
 nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
 cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
 cp -r /tmp/nixconf/* /mnt/etc/nixos
 cp /tmp/hw.conf /mnt/etc/nixos/hosts/$HOSTNAME/hardware-configuration.nix
+
+
+
 
 nixos-install --flake /mnt/etc/nixos#$HOSTNAME --root /mnt
 
@@ -72,9 +80,6 @@ rm -rf /mnt/etc/nixos/*
 
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh
-
-mkdir -p /mnt/etc/secrets/initrd
-ssh-keygen -t rsa -N "" -f /mnt/etc/secrets/initrd/ssh_host_rsa_key
 
 rm -rf /tmp/*
 

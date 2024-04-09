@@ -82,6 +82,9 @@ echo "$PASSWORD" | cryptsetup luksFormat "$DISK"3 -
 echo "$PASSWORD" | cryptsetup open "$DISK"3 cryptroot -
 mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 
+unset PASSWORD
+unset PASSWORD_VERIFY
+
 # mount "$DISK"3 /mnt
 # mkdir /mnt/boot
 # mount "$DISK"1 /mnt/boot
@@ -129,3 +132,4 @@ echo "Installation complete. Rebooting"
 sleep 2
 
 # reboot
+#

@@ -5,7 +5,6 @@ set -e -u -o pipefail -x
 # setfont ter-v24n
 DISK="$1"
 HOSTNAME="$2"
-PASSWORD_FILE="/tmp/secure.txt"
 
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
 
@@ -50,11 +49,26 @@ mkfs.vfat "$DISK"1
 # parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
 # mkswap -L Swap "$DISK"2
 # swapon "$DISK"2
+#
+# Ask for the password
+read -r -s -p "Enter the password for the LUKS partition: " PASSWORD
+echo # Move to a new line
+
+# Verify the password
+read -r -s -p "Verify the password: " PASSWORD_VERIFY
+echo # Move to a new line
+
+# Check if passwords match
+if [ "$PASSWORD" != "$PASSWORD_VERIFY" ]; then
+    echo "Passwords do not match."
+    exit 1
+fi
+
 
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
-cryptsetup luksFormat "$DISK"2 --key-file "$PASSWORD_FILE"
-cryptsetup open "$DISK"2 cryptswap --key-file "$PASSWORD_FILE"
+echo "$PASSWORD" | cryptsetup luksFormat "$DISK"2 -
+echo "$PASSWORD" | cryptsetup open "$DISK"2 cryptswap -
 mkswap -L Swap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
@@ -64,8 +78,8 @@ swapon /dev/mapper/cryptswap
 #
 parted "$DISK" -- mkpart primary 9GiB 100%
 # Setting up encryption for the root partition
-cryptsetup luksFormat "$DISK"3 --key-file "$PASSWORD_FILE"
-cryptsetup open "$DISK"3 cryptroot --key-file "$PASSWORD_FILE"
+echo "$PASSWORD" | cryptsetup luksFormat "$DISK"3 -
+echo "$PASSWORD" | cryptsetup open "$DISK"3 cryptroot -
 mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 
 # mount "$DISK"3 /mnt

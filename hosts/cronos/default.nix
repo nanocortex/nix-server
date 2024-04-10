@@ -11,7 +11,8 @@
       ./acme.nix
       #./nginx.nix
       ./caddy.nix
-      ./freshrss.nix
+      #./freshrss.nix
+      ./kuma.nix
     ];
 
   # Use the systemd-boot EFI boot loader.

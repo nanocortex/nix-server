@@ -14,7 +14,7 @@
       user = {
         isNormalUser = true;
         shell = pkgs.zsh;
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "docker" ];
 
         openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIED8axnZzZk5P39CEbMeJZy42o/4T0iHgr1pefNDsnU5 ex0cortex@pm.me" ];
         # hashedPasswordFile = "/persist/passwords/user";

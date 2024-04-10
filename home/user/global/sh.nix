@@ -29,7 +29,6 @@ let
     zrc="vim ~/.dotfiles/user/shell/sh.nix";
     #	'10rc'="vim ~/.p10k.zsh; source ~/.zshrc";
     als="vim ~/.dotfiles/user/shell/sh.nix";
-    #rrc="vim ~/.config/ranger/rc.conf";
     krc="vim ~/.dotfiles/user/app/terminal/kitty/kitty.nix";
     vrc="vim ~/.config/nvim";
     # trc="vim ~/.taskrc";
@@ -51,7 +50,6 @@ let
     sql="psql -U postgres";
     n="nfunc -e";
     wtf="COLORTERM=xterm-256color /Users/dave/src/programs/wtf/main --config='~/.config/wtf/config.yml'";
-    r="ranger_cd";
     yt="ytfzf -ii=anontube.lvkaszus.pl -t --thumb-viewer=kitty -s ";
     ytm="ytfzf -t -m --thumb-viewer=kitty -s";
     ytd="ytfzf -t -d --thumb-viewer=kitty -s";
@@ -72,7 +70,7 @@ let
     ls="ls -lah --color=auto";
     l="ls";
 
-    f="flutter";
+    #f="flutter";
     fr="flutter run";
     frr="flutter run --release";
     fw="flutter pub run build_runner watch --delete-conflicting-outputs";
@@ -104,7 +102,9 @@ let
     home-manager = "systemd-run --no-ask-password --uid=1000 --user --scope -p MemoryLimit=16000M -p CPUQuota=60% home-manager";
 
 
-    rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#$(hostname)";
+    r = "sudo nixos-rebuild switch --flake ~/dotfiles#$(hostname)";
+    f = "function _fdvim(){ fd \"$@\" -1 | xargs -I {} /etc/profiles/per-user/user/bin/lvim {}; }; _fdvim";
+
   };
 
 in

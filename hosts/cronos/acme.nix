@@ -21,5 +21,7 @@
     sopsFile = ./secrets.yaml;
   };
 
-  users.users.nginx.extraGroups = ["acme"];
+  #users.users.nginx.extraGroups = ["acme"];
+  users.users.caddy.extraGroups = ["acme"];
+
 }

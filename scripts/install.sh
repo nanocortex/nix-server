@@ -45,7 +45,6 @@ mkfs.vfat "$DISK"1
 # Check if TEST variable is set to 1
 if [ "${TEST}" == "1" ]; then
     PASSWORD="password"
-    PASSWORD_VERIFY="password"
 else
     # Ask for the password
     echo "ENTER Password for the LUKS partition: "
@@ -54,12 +53,12 @@ else
     # Verify the password
     echo "Verify the password: "
     read -s PASSWORD_VERIFY
-fi
 
-# Check if passwords match
-if [ $PASSWORD != $PASSWORD_VERIFY ]; then
-    echo "Passwords do not match."
-    exit 1
+    # Check if passwords match
+    if [ $PASSWORD != $PASSWORD_VERIFY ]; then
+        echo "Passwords do not match."
+        exit 1
+    fi
 fi
 
 # Setting up encryption for swap

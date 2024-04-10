@@ -6,7 +6,7 @@ set -e -u -o pipefail
 DISK="$1"
 HOSTNAME="$2"
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
-TEST=1
+TEST=0
 
 # Improved pre-conditions check and unmounting
 check_and_unmount() {
@@ -33,6 +33,8 @@ updateCryptSwap() {
 
   # Step 2c: Insert the 'cryptswap' line after 'cryptroot' line in hardware-configuration.nix
   sed -i "/$search_pattern/a $addition_line" "/mnt/etc/nixos/hardware-configuration.nix"
+
+  echo "Updated cryptswap configuration in hardware-configuration.nix"
 }
 
 # Pre-cleanup activities

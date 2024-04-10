@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -u -o pipefail -x
+set -e -u -o pipefail
 
 # setfont ter-v24n
 DISK="$1"

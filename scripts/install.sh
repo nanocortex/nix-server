@@ -21,6 +21,20 @@ closeLuks() {
     cryptsetup status "$luks_volume_name" &>/dev/null && sudo cryptsetup luksClose "$luks_volume_name" || echo "LUKS volume $luks_volume_name is not active or cannot be closed."
 }
 
+updateCryptSwap() {
+  # Step 1: Get the UUID for the swap partition
+  swap_uuid="$(lsblk -f | grep swap | sed -e 's/\s\+/ /g' | awk '{print $6}')"
+
+  # Step 2a: Define the search pattern to match the beginning of the 'cryptroot' line
+  search_pattern='^ *boot\.initrd\.luks\.devices\."cryptroot"'
+
+  # Step 2b: Create the addition line for 'cryptswap' with the fetched UUID
+  addition_line="  boot.initrd.luks.devices.\"cryptswap\".device = \"/dev/disk/by-uuid/$swap_uuid\";"
+
+  # Step 2c: Insert the 'cryptswap' line after 'cryptroot' line in hardware-configuration.nix
+  sed -i "/$search_pattern/a $addition_line" "/mnt/etc/nixos/hardware-configuration.nix"
+}
+
 # Pre-cleanup activities
 closeLuks "/dev/mapper/cryptswap"
 closeLuks "/dev/mapper/cryptroot"
@@ -90,6 +104,8 @@ cp /mnt/etc/secrets/initrd/ssh_host_rsa_key /etc/secrets/initrd/ssh_host_rsa_key
 
 rm -rf /tmp/nixconf
 nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
+
+updateCryptSwap
 
 cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
 cp -r /tmp/nixconf/* /mnt/etc/nixos

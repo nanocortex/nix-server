@@ -6,7 +6,7 @@ set -e -u -o pipefail
 DISK="$1"
 HOSTNAME="$2"
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
-TEST=0
+# TEST=0
 
 # Improved pre-conditions check and unmounting
 check_and_unmount() {
@@ -59,23 +59,23 @@ parted "$DISK" -- set 1 boot on
 mkfs.vfat "$DISK"1
 
 # Check if TEST variable is set to 1
-if [ "${TEST}" == "1" ]; then
-    PASSWORD="password"
-else
-    # Ask for the password
-    echo "ENTER Password for the LUKS partition: "
-    read -s PASSWORD
+# if [ "${TEST}" == "1" ]; then
+#     PASSWORD="password"
+# else
+# Ask for the password
+echo "ENTER Password for the LUKS partition: "
+read -s PASSWORD
 
-    # Verify the password
-    echo "Verify the password: "
-    read -s PASSWORD_VERIFY
+# Verify the password
+echo "Verify the password: "
+read -s PASSWORD_VERIFY
 
-    # Check if passwords match
-    if [ $PASSWORD != $PASSWORD_VERIFY ]; then
-        echo "Passwords do not match."
-        exit 1
-    fi
+# Check if passwords match
+if [ $PASSWORD != $PASSWORD_VERIFY ]; then
+    echo "Passwords do not match."
+    exit 1
 fi
+# fi
 
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
@@ -94,7 +94,8 @@ unset PASSWORD
 unset PASSWORD_VERIFY
 
 mount /dev/mapper/cryptroot /mnt
-mkdir -p /mnt/boot && mount "$DISK"1 /mnt/boot
+mkdir /mnt/boot
+mount "$DISK"1 /mnt/boot
 
 # create configuration
 nixos-generate-config --root /mnt

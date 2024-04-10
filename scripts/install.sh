@@ -6,7 +6,7 @@ set -e -u -o pipefail -x
 DISK="$1"
 HOSTNAME="$2"
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
-TEST=true
+TEST=1
 
 # Improved pre-conditions check and unmounting
 check_and_unmount() {

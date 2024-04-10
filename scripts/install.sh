@@ -6,6 +6,7 @@ set -e -u -o pipefail -x
 DISK="$1"
 HOSTNAME="$2"
 GITHUB_REPO="https://github.com/nanocortex/nix-server"
+TEST=true
 
 # Improved pre-conditions check and unmounting
 check_and_unmount() {
@@ -41,13 +42,19 @@ parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB
 parted "$DISK" -- set 1 boot on
 mkfs.vfat "$DISK"1
 
-# Ask for the password
-echo "ENTER Password for the LUKS partition: "
-read -s PASSWORD
+# Check if TEST variable is set to 1
+if [ "${TEST}" == "1" ]; then
+    PASSWORD="password"
+    PASSWORD_VERIFY="password"
+else
+    # Ask for the password
+    echo "ENTER Password for the LUKS partition: "
+    read -s PASSWORD
 
-# Verify the password
-echo "Verify the password: "
-read -s PASSWORD_VERIFY
+    # Verify the password
+    echo "Verify the password: "
+    read -s PASSWORD_VERIFY
+fi
 
 # Check if passwords match
 if [ $PASSWORD != $PASSWORD_VERIFY ]; then

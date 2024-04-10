@@ -108,7 +108,7 @@ cp /mnt/etc/secrets/initrd/ssh_host_rsa_key /etc/secrets/initrd/ssh_host_rsa_key
 rm -rf /tmp/nixconf
 nix-shell -p git --run "git clone $GITHUB_REPO /tmp/nixconf"
 
-updateCryptSwap
+# updateCryptSwap
 
 cp /mnt/etc/nixos/hardware-configuration.nix /tmp/hw.conf
 cp -r /tmp/nixconf/* /mnt/etc/nixos

@@ -11,4 +11,7 @@
       dns_enabled = true;
     };
   };
+
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
+
 }

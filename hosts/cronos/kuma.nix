@@ -1,8 +1,11 @@
 # Auto-generated using compose2nix v0.1.9.
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, system, ... }:
 
 {
   # Runtime
+  system.activationScripts.makeKumaDir = lib.stringAfter [ "var" ] ''
+    mkdir -p /var/lib/kuma
+  '';
 
   services.caddy.virtualHosts."testkuma.exocortex.in" = {
     useACMEHost = "exocortex.in";

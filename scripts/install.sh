@@ -22,7 +22,7 @@ closeLuks() {
 }
 
 # Pre-cleanup activities
-closeLuks "/dev/mapper/crytswap"
+closeLuks "/dev/mapper/cryptswap"
 closeLuks "/dev/mapper/cryptroot"
 
 check_and_unmount /mnt/boot

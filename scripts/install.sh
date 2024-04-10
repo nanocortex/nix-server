@@ -20,6 +20,7 @@ closeLuks() {
     cryptsetup status "$luks_volume_name" &>/dev/null && sudo cryptsetup luksClose "$luks_volume_name" || echo "LUKS volume $luks_volume_name is not active or cannot be closed."
 }
 
+# Pre-cleanup activities
 closeLuks "/dev/mapper/crytswap"
 closeLuks "/dev/mapper/cryptroot"
 
@@ -34,21 +35,12 @@ sleep 2
 wipefs -a "$DISK"
 sleep 2
 
-# if mountpoint -q /mnt/boot && [ -d /mnt/boot ]; then umount -l /mnt/boot; fi
-# if mountpoint -q /mnt && [ -d /mnt ]; then umount -l /mnt; fi
-
-# swapoff -a
-# wipefs -a "$DISK"
-
+# Partition and format disk
 parted "$DISK" -- mklabel gpt
 parted "$DISK" -- mkpart ESP fat32 1MiB 1GiB
 parted "$DISK" -- set 1 boot on
 mkfs.vfat "$DISK"1
 
-# parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
-# mkswap -L Swap "$DISK"2
-# swapon "$DISK"2
-#
 # Ask for the password
 echo "ENTER Password for the LUKS partition: "
 read -s PASSWORD
@@ -63,8 +55,6 @@ if [ $PASSWORD != $PASSWORD_VERIFY ]; then
     exit 1
 fi
 
-echo "PASSWORD ISSSSS: $PASSWORD"
-
 # Setting up encryption for swap
 parted "$DISK" -- mkpart Swap linux-swap 1GiB 9GiB
 echo -n $PASSWORD | cryptsetup luksFormat "$DISK"2 -
@@ -72,12 +62,8 @@ echo -n $PASSWORD | cryptsetup open "$DISK"2 cryptswap -
 mkswap -L Swap /dev/mapper/cryptswap
 swapon /dev/mapper/cryptswap
 
-
-# parted "$DISK" -- mkpart primary 9GiB 100%
-# mkfs.ext4 -L ext4 "$DISK"3 -F
-#
+# Setting up root partition
 parted "$DISK" -- mkpart primary 9GiB 100%
-# Setting up encryption for the root partition
 echo -n $PASSWORD | cryptsetup luksFormat "$DISK"3 -
 echo -n $PASSWORD | cryptsetup open "$DISK"3 cryptroot -
 mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
@@ -85,14 +71,8 @@ mkfs.ext4 -L ext4 /dev/mapper/cryptroot -F
 unset PASSWORD
 unset PASSWORD_VERIFY
 
-# mount "$DISK"3 /mnt
-# mkdir /mnt/boot
-# mount "$DISK"1 /mnt/boot
-
 mount /dev/mapper/cryptroot /mnt
-mkdir /mnt/boot
-mount "$DISK"1 /mnt/boot
-
+mkdir -p /mnt/boot && mount "$DISK"1 /mnt/boot
 
 # create configuration
 nixos-generate-config --root /mnt
@@ -110,8 +90,7 @@ cp -r /tmp/nixconf/* /mnt/etc/nixos
 cp /tmp/hw.conf /mnt/etc/nixos/hosts/$HOSTNAME/hardware-configuration.nix
 
 
-
-
+# install nixos
 nixos-install --flake /mnt/etc/nixos#$HOSTNAME --root /mnt
 
 # cp -r /mnt/etc/nixos /mnt/home/user/dotfiles
@@ -120,16 +99,12 @@ nix-shell -p git --run "git clone $GITHUB_REPO /mnt/home/user/dotfiles"
 cp /tmp/hw.conf /mnt/home/user/dotfiles/hosts/$HOSTNAME/hardware-configuration.nix
 
 rm -rf /mnt/etc/nixos/*
-# ln -s /mnt/etc/nixos /mnt/home/user/dotfiles
 
 cp /tmp/ssh_host_ed25519_key /mnt/etc/ssh
 cp /tmp/ssh_host_ed25519_key.pub /mnt/etc/ssh
 
+# Final cleanup and reboot
 rm -rf /tmp/*
-
 echo "Installation complete. Rebooting"
-
 sleep 2
-
 # reboot
-#
